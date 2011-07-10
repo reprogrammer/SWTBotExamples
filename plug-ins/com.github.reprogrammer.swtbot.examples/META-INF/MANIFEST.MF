@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.github.reprogrammer.swtbot.examples
+Bundle-SymbolicName: com.github.reprogrammer.swtbot.examples
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.github.reprogrammer.swtbot.examples.Activator
+Bundle-Vendor: Mohsen Vakilian
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.swtbot.go;bundle-version="2.0.4",
+ org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Eclipse-RegisterBuddy: org.apache.log4j
+
