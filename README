@@ -1,0 +1,3 @@
+This repository contains a list of SWTBot tests that I have had difficulty in making them work. I have created this space so that other SWTBot experts could take a look at these tests and fix them. Feel free to fork this repository to fix the reported issues.
+
+The contents of this repository are licensed under the Illinois/NCSA Open Source License. See LICENSE.TXT for more details.
