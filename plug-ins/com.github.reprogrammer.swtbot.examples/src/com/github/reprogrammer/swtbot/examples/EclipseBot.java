@@ -6,19 +6,25 @@ package com.github.reprogrammer.swtbot.examples;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.matchers.WidgetMatcherFactory;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEclipseEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 
 /**
  * @author Mohsen Vakilian
@@ -166,6 +172,27 @@ public class EclipseBot {
 		for (String buttonName : buttonNames) {
 			bot.button(buttonName).click();
 		}
+	}
+
+	/**
+	 * 
+	 * This method provides a workaround for Eclipse bug 344484.
+	 * 
+	 * @param radioText
+	 */
+	public void deselectRadio(final String radioText) {
+		UIThreadRunnable.syncExec(new VoidResult() {
+
+			public void run() {
+				@SuppressWarnings("unchecked")
+				Matcher<Widget> matcher= WidgetMatcherFactory.allOf(WidgetMatcherFactory.widgetOfType(Button.class), WidgetMatcherFactory.withStyle(SWT.RADIO, "SWT.RADIO"),
+						WidgetMatcherFactory.withMnemonic(radioText));
+
+				Button b= (Button)bot.widget(matcher);
+				b.setSelection(false);
+			}
+
+		});
 	}
 
 	public SWTWorkbenchBot getBot() {
